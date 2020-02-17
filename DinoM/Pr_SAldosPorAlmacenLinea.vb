@@ -8,55 +8,10 @@ Public Class Pr_SAldosPorAlmacenLinea
     Public _tab As SuperTabItem
     Dim bandera As Boolean = False
 
-    Private Function GetDataExcel( _
-    ByVal fileName As String, ByVal sheetName As String) As DataTable
-
-        ' Comprobamos los parámetros.
-        '
-        If ((String.IsNullOrEmpty(fileName)) OrElse _
-          (String.IsNullOrEmpty(sheetName))) Then _
-          Throw New ArgumentNullException()
-
-        Try
-            Dim extension As String = IO.Path.GetExtension(fileName)
-
-            Dim connString As String = "Data Source=" & fileName
-
-            If (extension = ".xls") Then
-                connString &= ";Provider=Microsoft.Jet.OLEDB.4.0;" & _
-                       "Extended Properties='Excel 8.0;HDR=YES;IMEX=1'"
-
-            ElseIf (extension = ".xlsx") Then
-                connString &= ";Provider=Microsoft.ACE.OLEDB.12.0;" & _
-                       "Extended Properties='Excel 12.0 Xml;HDR=YES;IMEX=1'"
-            Else
-                Throw New ArgumentException( _
-                  "La extensión " & extension & " del archivo no está permitida.")
-            End If
-
-            Using conexion As New OleDbConnection(connString)
-
-                Dim sql As String = "SELECT * FROM [" & sheetName & "$]"
-                Dim adaptador As New OleDbDataAdapter(sql, conexion)
-
-                Dim dt As New DataTable("Excel")
-
-                adaptador.Fill(dt)
-
-                Return dt
-
-            End Using
-
-        Catch ex As Exception
-            Throw
-
-        End Try
-
-    End Function
     Public Sub _prIniciarTodo()
         'L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
         _prCargarComboLibreriaSucursal(cbAlmacen)
-        _prCargarComboGrupos(cbGrupos)
+        '_prCargarComboGrupos(cbGrupos)
         _PMIniciarTodo()
         Me.Text = "SALDOS DE PRODUCTOS"
         MReportViewer.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None

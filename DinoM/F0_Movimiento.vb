@@ -606,15 +606,15 @@ Public Class F0_Movimiento
         grproducto.RootTable.FormatConditions.Add(fc)
     End Sub
     Private Sub _prAddDetalleVenta()
-        'a.icid ,a.icibid ,a.iccprod ,b.cadesc as producto,a.iccant ,Cast(null as image ) as img,1 as estado
-
-        '      a.icid ,a.icibid ,a.iccprod ,b.yfcdprod1  as producto,a.iccant ,
-        'a.iclot ,a.icfvenc ,Cast(null as image ) as img,1 as estado,
-        '(Sum(inv.iccven )+a.iccant  ) as stock
+        '      'a.icid ,a.icibid ,a. iccprod ,b.Id  as yfcprod  ,b.Descrip   as producto,
+        'gr3.Descrip  as Laboratorio, gr4.Descrip  As Presentacion, a.iccant,
+        '      a.iclot , a.icfvenc, Cast(null As image ) As img, 1 As estado,
+        '(Sum(inv.iccven)  +a.iccant ) as stock
         Dim Bin As New MemoryStream
         Dim img As New Bitmap(My.Resources.delete, 28, 28)
         img.Save(Bin, Imaging.ImageFormat.Png)
-        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, "", "", "", "", 0, "20190101", CDate("2019/01/01"), Bin.GetBuffer, 0, 0)
+        CType(grdetalle.DataSource, DataTable).Rows.Add(_fnSiguienteNumi() + 1, 0, 0, 0, "", "", "", 0, "20190101", CDate("2019/01/01"),
+                                                        Bin.GetBuffer, 0, 0)
     End Sub
     Public Function _fnSiguienteNumi()
         Dim dt As DataTable = CType(grdetalle.DataSource, DataTable)
@@ -756,7 +756,7 @@ Public Class F0_Movimiento
                 Dim detalleCopia As DataTable = CType(grdetalle.DataSource, DataTable).Copy
                 detalleCopia.Rows.Clear()
 
-                detalleCopia.Rows.Add(0, numi, CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccprod"), "", "", "", "",
+                detalleCopia.Rows.Add(0, numi, CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccprod"), CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccprod"), "", "", "",
                                       CType(grdetalle.DataSource, DataTable).Rows(i).Item("iccant"),
                                       CType(grdetalle.DataSource, DataTable).Rows(i).Item("iclot"),
                                       CType(grdetalle.DataSource, DataTable).Rows(i).Item("icfvenc"), Bin.GetBuffer, estado, 0)

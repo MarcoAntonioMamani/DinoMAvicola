@@ -1604,8 +1604,8 @@ Public Class AccesoLogica
         Dim _Tabla As DataTable
 
         Dim _listParam As New List(Of Datos.DParametro)
-        _listParam.Add(New Datos.DParametro("@tipo", 7))
-        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001", _listParam)
+        _listParam.Add(New Datos.DParametro("@tipo", 9))
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TA001", _listParam)
 
         Return _Tabla
     End Function
@@ -1624,7 +1624,7 @@ Public Class AccesoLogica
 
         Dim _listParam As New List(Of Datos.DParametro)
         _listParam.Add(New Datos.DParametro("@tipo", 8))
-        _Tabla = D_ProcedimientoConParam("sp_Mam_TC001", _listParam)
+        _Tabla = D_ProcedimientoConParam("sp_Mam_TA001", _listParam)
 
         Return _Tabla
     End Function
@@ -1806,8 +1806,8 @@ Public Class AccesoLogica
 #Region "TA002 Deposito"
     Public Shared Function L_fnEliminarDeposito(numi As String, ByRef mensaje As String) As Boolean
         Dim _resultado As Boolean
-        If L_fnbValidarEliminacion(numi, "TA002", "abnumi", mensaje) = True Then
-            Dim _Tabla As DataTable
+        'If L_fnbValidarEliminacion(numi, "TA002", "abnumi", mensaje) = True Then
+        Dim _Tabla As DataTable
             Dim _listParam As New List(Of Datos.DParametro)
 
             _listParam.Add(New Datos.DParametro("@tipo", -1))
@@ -1821,10 +1821,10 @@ Public Class AccesoLogica
             Else
                 _resultado = False
             End If
-        Else
-            _resultado = False
-        End If
-        Return _resultado
+            'Else
+            '    _resultado = False
+            'End If
+            Return _resultado
     End Function
 
 
@@ -1907,8 +1907,8 @@ Public Class AccesoLogica
 #Region "TA001 Almacen"
     Public Shared Function L_fnEliminarAlmacen(numi As String, ByRef mensaje As String) As Boolean
         Dim _resultado As Boolean
-        If L_fnbValidarEliminacion(numi, "TA001", "abnumi", mensaje) = True Then
-            Dim _Tabla As DataTable
+        'If L_fnbValidarEliminacion(numi, "TA001", "abnumi", mensaje) = True Then
+        Dim _Tabla As DataTable
             Dim _listParam As New List(Of Datos.DParametro)
 
             _listParam.Add(New Datos.DParametro("@tipo", -1))
@@ -1922,9 +1922,9 @@ Public Class AccesoLogica
             Else
                 _resultado = False
             End If
-        Else
-            _resultado = False
-        End If
+        'Else
+        '    _resultado = False
+        'End If
         Return _resultado
     End Function
 
@@ -3409,7 +3409,12 @@ Public Class AccesoLogica
         _listParam.Add(New Datos.DParametro("@fechaI", FechaI))
         _listParam.Add(New Datos.DParametro("@fechaF", FechaF))
         _listParam.Add(New Datos.DParametro("@almacen", _almacen))
-        _Tabla = D_ProcedimientoConParam("sp_Mam_TI002", _listParam)
+        Try
+            _Tabla = D_ProcedimientoConParam("sp_Mam_TI002", _listParam)
+        Catch ex As Exception
+            Dim s As String = ex.Message
+        End Try
+
 
         Return _Tabla
     End Function

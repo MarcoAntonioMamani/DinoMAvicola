@@ -14,7 +14,7 @@ Public Class P_Principal
 #Region "Metodos Privados"
 
     Public Sub New()
-        _prCambiarStyle()
+        '_prCambiarStyle()
         ' This call is required by the designer.
         InitializeComponent()
         FP_Configuracion.Select ()
@@ -25,7 +25,9 @@ Public Class P_Principal
     Private Sub _prIniciarTodo()
         'Leer Archivo de Configuración
         _prLeerArchivoConfig()
-
+        Dim blah As New Bitmap(New Bitmap(My.Resources.avicola01), 20, 20)
+        Dim ico As Icon = Icon.FromHandle(blah.GetHicon())
+        Me.Icon = ico
         L_prAbrirConexion(gs_Ip, gs_UsuarioSql, gs_ClaveSql, gs_NombreBD)
 
 
@@ -87,10 +89,9 @@ Public Class P_Principal
         _prValidarMayusculas()
     End Sub
     Public Sub _prValidarMayusculas()
-        Dim dt As DataTable = L_fnPorcUtilidad()
-        If (dt.Rows.Count > 0) Then
-            Modelo.MGlobal.gs_mayusuculas = dt.Rows(0).Item("mayusculas")
-        End If
+
+        Modelo.MGlobal.gs_mayusuculas = 0
+
     End Sub
 
     Private Sub P_prCargarParametros()
@@ -447,7 +448,7 @@ Public Class P_Principal
 
     End Sub
 
-    Private Sub btInvVentas_Click(sender As Object, e As EventArgs) Handles btInvVentas.Click
+    Private Sub btInvVentas_Click(sender As Object, e As EventArgs)
         SideNav1.IsMenuExpanded = False
         Ventana.Select()
         Dim frm As New F0_Venta2
@@ -590,6 +591,7 @@ Public Class P_Principal
         Dim frm As New Pr_SAldosPorAlmacenLinea
         Dim tab3 As SuperTabItem = superTabControl3.CreateTab(frm.Text)
         frm._tab = tab3
+        frm._nameButton = btInvSaldo.Name
         Dim panel As Panel = P_Global._fnCrearPanelVentanas(frm)
         superTabControl3.SelectedTabIndex = superTabControl3.Tabs.Count - 1
         tab3.AttachedControl.Controls.Add(panel)

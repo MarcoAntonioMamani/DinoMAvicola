@@ -489,6 +489,7 @@
     <Content Include="Resources\addbt.png" />
     <Content Include="Resources\addimg.png" />
     <Content Include="Resources\almacen.png" />
+    <None Include="Resources\avicola3.jpg" />
     <Content Include="Resources\cancel.png" />
     <Content Include="Resources\checked.png" />
     <Content Include="Resources\clase_practica.png" />
